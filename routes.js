@@ -36,9 +36,15 @@ const routes = [
         method: 'GET',
         path: '/hello/{name?}',
         handler: (request, h) => {
-            const { name = "stranger" } = request.params
-            return `Hello, ${name}!`
+            const { name = "stranger" } = request.params // {hello/Felix}
+            const { lang } =  request.query // {hello/Felix?lang=id}
 
+            if(lang === 'id'){
+                return `Hai, ${name}!`
+                // curl -X GET http://localhost:5000/hello/Felix?lang=id
+            }
+
+            return `Hello, ${name}!`
             // curl -X GET http://localhost:5000/hello/Felix
         }
     },
