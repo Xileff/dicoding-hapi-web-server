@@ -20,7 +20,11 @@ const routes = [
         method: 'GET',
         path: '/about',
         handler: (request, h) => {
-            return 'About page'
+            // Respose toolkit from h
+            // h.response() is the same as response() from native NodeJS
+            return h.response('About page')
+                    .type('text/plain')
+                    .header('X-Powered-By', 'NodeJS')
         }
     },
     {
@@ -46,6 +50,18 @@ const routes = [
 
             return `Hello, ${name}!`
             // curl -X GET http://localhost:5000/hello/Felix
+        }
+    },
+
+    // Route: /login
+    {
+        method: 'POST',
+        path: '/login',
+        handler: (request, h) => {
+            // Request is the same like native NodeJS, which is a subclass of readableStream
+            const { username, password } = request.payload
+
+            return `Welcome, ${username}`
         }
     },
 
